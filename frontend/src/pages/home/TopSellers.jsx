@@ -4,14 +4,16 @@ import BookCard from '../books/BookCard';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+// import required modules
+import { Navigation, Pagination } from 'swiper/modules';
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 
-// import required modules
-import { Navigation, Pagination } from 'swiper/modules';
+
 
 
 const categories = ["Choose a genre" , "Business", "Fiction", "Horror" , "Adventure"]
