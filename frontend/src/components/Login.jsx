@@ -4,13 +4,14 @@ import { FaGoogle } from "react-icons/fa"
 import { useForm } from "react-hook-form"
 
 const Login = () => {
-    const[message, setMessage] = useState("")
-     const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm()
+    const [message, setMessage] = useState("")
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm()
+    
 
   const onSubmit = (data) => {
     console.log(data);
@@ -33,7 +34,7 @@ const Login = () => {
            {...register("email", { required: true })}
            type="email" name="email" id="email" placeholder='Email Address'
            className="shadow appearance-none border rounded w-full py-2 px-3 
-           leading-tight focus:outline-none focus:shadow"
+           leading-tight focus:outline-none focus:shadow-outline"
              />
         </div>
 
@@ -44,7 +45,7 @@ const Login = () => {
            {...register("password", { required: true })}
            type="password" name="password" id = "password" placeholder = 'Password'
            className="shadow appearance-none border rounded w-full py-2 px-3 
-           leading-tight focus:outline-none focus:shadow"
+           leading-tight focus:outline-none focus:shadow-outline"
              />
         </div>
 
@@ -54,11 +55,11 @@ const Login = () => {
 
         <div>
             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold
-            px-8 py-2 rounded focus:outline-none'>Login</button>
+            px-8 py-2 rounded focus:outline-none focus:shadow-outline'>Login</button>
         </div>
     </form>
       <p className='align-baseline font-medium mt-4 text-sm'> 
-      Haven't an Account? Please{" "}
+      Don't have an Account? Please{" "}
       <Link to="/register" className='text-blue-500 hover:text-blue-700'>Register</Link>
      </p>
 
@@ -67,7 +68,7 @@ const Login = () => {
         <button
         onClick={handleGoogleSignIn}
         className='w-full flex flex-wrap gap-1 items-center justify-center
-        bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+        bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
         focus:outline-none'>
         <FaGoogle className='mr-2' />
         Sign in with Google
