@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import BookCard from '../books/BookCard';
+import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,24 +14,27 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 
-
-
-
 const categories = ["Choose a genre" , "Business", "Fiction", "Horror" , "Adventure"]
 
 const TopSellers = () => {
-    const [books, setBooks] = useState([]);
+  
     const [selectedCategory, setSelectedCategory] = useState("Choose a genre");
-    useEffect(() => {
-        fetch("books.json")
-        .then(res => res.json())
-        .then((data) => setBooks(data))
-    } , [])
+
+    const {data, error, isLoading} = useFetchAllBooksQuery();
+    console.log('API Response:', data);
+    console.log('Error:', error);
+    console.log('Loading:', isLoading);
+    
+    const books = data?.books || [];
+    console.log('Books array:', books);
 
     const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter(book =>
          book.category === selectedCategory.toLowerCase())
 
          console.log(filteredBooks);
+
+    if (isLoading) return <div className='py-10'><p>Loading books...</p></div>;
+    if (error) return <div className='py-10'><p>Error loading books: {error.message}</p></div>;
 
     return (
      <div className='py-10'>
@@ -77,7 +81,7 @@ const TopSellers = () => {
         className="mySwiper"
       >
           {
-           filteredBooks.length > 0 && filteredBooks.map((book, index) => (
+           filteredBooks && filteredBooks.length > 0 && filteredBooks.map((book, index) => (
             <SwiperSlide key={index}>
                 <BookCard  book={book}/>
             </SwiperSlide>
