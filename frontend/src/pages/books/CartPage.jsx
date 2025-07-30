@@ -2,13 +2,13 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import getImgUrl from '../../utils/getImgUrl';
-import { removeFromCart, clearCart } from '../../redux/features/cart/cartSlice';
+import { removeFromCart, clearCart, increaseQuantity, decreaseQuantity } from '../../redux/features/cart/cartSlice';
 
 
 const CartPage = () => {
   const cartItems = useSelector(state => state.cart.cartitems);
   const dispatch = useDispatch();
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2);
+  const totalPrice = cartItems.reduce((acc, item) => acc + (item.newPrice * item.quantity), 0).toFixed(2);
 
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product));
@@ -42,7 +42,7 @@ const CartPage = () => {
                  <ul role="list" className="-my-6 divide-y divide-gray-200">
                     {
                         cartItems.map((product) => (
-                 <li key = {product?._id} className="flex py-6">
+                 <li key = {product?._id || product?.title} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
                       alt=""
@@ -57,17 +57,28 @@ const CartPage = () => {
                         <h3>
                           <Link to='/'>{product?.title}</Link>
                         </h3>
-                        <p className="sm:ml-4">${product?.newPrice}</p>
+                        <p className="sm:ml-4">${(product?.newPrice * product.quantity).toFixed(2)}</p>
                       </div>
                       <p className="mt-1 text-sm text-gray-500 capitalize"><strong>Category: </strong> {product?.category  }</p>
                     </div>
                     <div className="flex flex-1 flex-wrap items-end justify-between space-y-2 text-sm">
-                      <p className="text-gray-500"><strong>Qty:</strong> 1</p>
+                      <div className="flex items-center space-x-2">
+                        <button 
+                          onClick={() => dispatch(decreaseQuantity(product))}
+                          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">
+                          -
+                        </button>
+                        <span className="text-gray-500"><strong>Qty:</strong> {product.quantity}</span>
+                        <button 
+                          onClick={() => dispatch(increaseQuantity(product))}
+                          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">
+                          +
+                        </button>
+                      </div>
 
                       <div className="flex">
                         <button 
-                         onClick={() => 
-                            handleRemoveFromCart(product)} 
+                         onClick={() => handleRemoveFromCart(product)} 
                          type="button" 
                          className="font-medium text-indigo-600 hover:text-indigo-500">
                           Remove

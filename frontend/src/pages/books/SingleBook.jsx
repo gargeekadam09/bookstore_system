@@ -5,14 +5,20 @@ import { useParams } from "react-router-dom"
 import getImgUrl from '../../utils/getImgUrl';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/features/cart/cartSlice';
-import { useFetchBookByIdQuery } from '../../redux/features/books/booksApi';
+import { useFetchBookByIdQuery, useFetchAllBooksQuery } from '../../redux/features/books/booksApi';
 
 const SingleBook = () => {
     const {id} = useParams();
     console.log('Book ID from URL params:', id);
     
+    // Try to fetch by ID first, if that fails or ID looks like a title, fetch all books and find by title
     const {data, isLoading, isError, error} = useFetchBookByIdQuery(id, {
-        skip: !id // Skip the query if no ID is provided
+        skip: !id || id.includes('%20') || id.length > 24 // Skip if no ID or if it looks like an encoded title
+    });
+    
+    // Import the fetch all books query for title-based lookup
+    const {data: allBooksData, isLoading: allBooksLoading} = useFetchAllBooksQuery(undefined, {
+        skip: !id || (!id.includes('%20') && id.length <= 24) // Only fetch all books if we need title lookup
     });
     
     console.log('Single book API response:', data);
@@ -20,7 +26,16 @@ const SingleBook = () => {
     console.log('Is Loading:', isLoading);
     console.log('Is Error:', isError);
     
-    const book = data?.book || data;
+    // Determine the book based on whether we're using ID or title lookup
+    let book;
+    if (data?.book || data) {
+        book = data?.book || data;
+    } else if (allBooksData?.books) {
+        const decodedTitle = decodeURIComponent(id);
+        book = allBooksData.books.find(b => b.title === decodedTitle);
+    }
+    
+    const actualLoading = isLoading || allBooksLoading;
     const dispatch = useDispatch();
 
     const handleAddToCart = (product) => {
@@ -36,7 +51,7 @@ const SingleBook = () => {
         )
     }
     
-    if(isLoading) {
+    if(actualLoading) {
         return (
             <div className="flex justify-center items-center min-h-96">
                 <div className="text-lg">Loading book details...</div>

@@ -18,7 +18,7 @@ const handleAddToCart = (product) => {
     className="flex flex-col sm:flex-row sm:items-center sm:h-72  sm:justify-center gap-4"
   >
     <div className="sm:h-72 sm:flex-shrink-0 border rounded-md">
-      <Link to= {`/books/${book._id}`} >
+      <Link to= {`/books/${book._id || encodeURIComponent(book.title)}`} >
         <img
           src={`/src/assets/books/${book?.coverImage}`}
           alt={book.title}
@@ -28,7 +28,7 @@ const handleAddToCart = (product) => {
     </div>
 
     <div>
-      <Link to= {`/books/${book._id}`} >
+      <Link to= {`/books/${book._id || encodeURIComponent(book.title)}`} >
       <h3 className="text-xl font-semibold hover:text-blue-600 mb-3">
         {book?.title}
         </h3>

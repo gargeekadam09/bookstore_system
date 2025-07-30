@@ -17,7 +17,13 @@ app.use(cors({
 
 //routes
 const bookRoutes = require('./src/books/book.route');
+const orderRoutes = require('./src/orders/order.route');
+const adminRoutes = require('./src/admin/admin.route');
+
+
 app.use("/api/books", bookRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/admin", adminRoutes);
 
 async function main() {
   try {

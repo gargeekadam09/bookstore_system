@@ -27,16 +27,21 @@ const getSingleBook = async (req, res) => {
       try{
         console.log("Single book request received for ID:", req.params.id);
         const {id} = req.params;
+        let book;
         
         // Check if ID is valid MongoDB ObjectId format
-        if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-          console.log("Invalid ObjectId format:", id);
-          return res.status(400).send({message: "Invalid book ID format"});
+        if (id.match(/^[0-9a-fA-F]{24}$/)) {
+          // Search by MongoDB ID
+          book = await Book.findById(id);
+        } else {
+          // Search by title (URL decoded)
+          const decodedTitle = decodeURIComponent(id);
+          console.log("Searching by title:", decodedTitle);
+          book = await Book.findOne({ title: decodedTitle });
         }
         
-        const book = await Book.findById(id);
         if(!book) {
-          console.log("Book not found with ID:", id);
+          console.log("Book not found with identifier:", id);
           return res.status(404).send({message : "Book not found!"});
         }
         console.log("Book fetched successfully:", book.title);

@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { HiBars3CenterLeft } from "react-icons/hi2";
-import { IoSearch, IoSearchOutline } from "react-icons/io5";
 import { HiOutlineUser } from "react-icons/hi";
 import { HiOutlineHeart } from "react-icons/hi";
 import { HiOutlineShoppingCart } from "react-icons/hi";
@@ -10,7 +8,6 @@ import { useSelector } from "react-redux";
 import { useAuth } from "../context/AuthContext";
 
 const navigation = [
-    { name: "Dashboard", href: "/dashboard"},
     { name: "Orders", href: "/orders" },
     { name: "Cart Page ", href: "/cart" },
     { name: "Check Out", href: "/checkout" },
@@ -20,35 +17,20 @@ const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const cartItems = useSelector ((state) => state.cart.cartitems);
 
-    const{currentUser, logout} = useAuth()
-
+    const { currentUser, logout } = useAuth()
+   
     const handleLogout = () => {
         logout();
         setIsDropdownOpen(false);
     }
-   
-    
 
     console.log(cartItems);
     return (
         <header className="max-w-screen-2xl mx-auto px-4 py-6"> 
         <nav className="flex justify-between items-center">
             {/* left side of navbar*/}
-            <div className="flex items-center mid:gap-16 gap-4"> 
-                <Link to = "/">
-                <HiBars3CenterLeft className="size-6"/>
-                </Link>
-
-                {/* Search Section of Navbar*/}
-                <div className="relative sm:w-72 w-40 space-x-2">
-                  <IoSearchOutline className="absolute inline-block left-3 inset-y-2"/>
-
-                  <input type="text" placeholder="Search Here"
-                  className="bg-[#EAEAEA] w-full py-1 md:px-8 px-6 rounded-md
-                  focus:outline-none"
-                  /> 
-                </div>
-              </div>
+            <div className="flex items-center"> 
+            </div>
 
               {/* Right side of navbar */}
             <div className = "relative flex items-center mid:space-x-3 space-x-2">
@@ -78,7 +60,9 @@ const Navbar = () => {
                                             ))
                                         }
                                         <li>
-                                            <button onClick={handleLogout} className="block w-full text-left
+                                            <button 
+                                            onClick={handleLogout}
+                                            className="block w-full text-left
                                             px-4 py-2 text-sm text-black hover:bg-gray-100">Logout</button>
                                         </li>
                                     </ul>
@@ -92,6 +76,10 @@ const Navbar = () => {
                <button className="hidden sm:block">
                <HiOutlineHeart className="size-6"/>
                </button>
+
+               <Link to="/admin/login" className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm font-medium">
+                   Admin
+               </Link>
 
                <Link to="/cart" className="bg-primary p-1 sm:px-6 px-2 flex items-center rounded-sm">
                

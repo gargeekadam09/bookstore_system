@@ -12,9 +12,11 @@ app.use(cors());
 
 // Import routes
 const bookRoutes = require('./src/books/book.route');
+const adminRoutes = require('./src/admin/admin.route');
 
 // Use routes
 app.use('/api/books', bookRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Root route
 app.get('/', (req, res) => {
