@@ -12,7 +12,7 @@ require('dotenv').config()
 app.use(express.json());
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
-      ? ["https://bookstore-system-9oo6.vercel.app"]
+      ? ["https://bookstore-system-seven.vercel.app", "https://bookstore-system-9oo6.vercel.app"]
       : ["http://localhost:5173"],
     credentials: true
 }));
