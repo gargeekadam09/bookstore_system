@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import BookCard from '../books/BookCard';
-import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi';
+import { mockBooks } from '../../data/mockBooks';
+// import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,21 +21,11 @@ const TopSellers = () => {
   
     const [selectedCategory, setSelectedCategory] = useState("Choose a genre");
 
-    const {data, error, isLoading} = useFetchAllBooksQuery();
-    console.log('API Response:', data);
-    console.log('Error:', error);
-    console.log('Loading:', isLoading);
-    
-    const books = data?.books || [];
-    console.log('Books array:', books);
+    const books = mockBooks;
+    console.log('Books loaded:', books.length);
 
     const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter(book =>
          book.category === selectedCategory.toLowerCase())
-
-         console.log(filteredBooks);
-
-    if (isLoading) return <div className='py-10'><p>Loading books...</p></div>;
-    if (error) return <div className='py-10'><p>Error loading books: {error.message}</p></div>;
 
     return (
      <div className='py-10'>
