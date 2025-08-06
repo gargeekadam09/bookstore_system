@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDERID,
-  appId: import.meta.env.VITE_APPID  
+  apiKey: import.meta.env.VITE_API_KEY || "AIzaSyA7Swi_D3V0a2087-6WZ5BatsLdnfg9zYE",
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN || "book-store-mern-app-7662b.firebaseapp.com",
+  projectId: import.meta.env.VITE_PROJECT_ID || "book-store-mern-app-7662b",
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET || "book-store-mern-app-7662b.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDERID || "694090295069",
+  appId: import.meta.env.VITE_APPID || "1:694090295069:web:be6843225fdcfeac7923f4"
 };
 
 // Initialize Firebase

@@ -17,6 +17,14 @@ app.use(cors({
     credentials: false
 }));
 
+// Handle preflight requests
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.sendStatus(200);
+});
+
 //routes
 const bookRoutes = require('./src/books/book.route');
 const orderRoutes = require('./src/orders/order.route');
