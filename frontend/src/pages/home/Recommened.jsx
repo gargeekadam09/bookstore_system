@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import BookCard from '../books/BookCard'
-import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi'
+import { mockBooks } from '../../data/mockBooks'
+// import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -14,15 +15,9 @@ import 'swiper/css/navigation';
 
 const Recommened = () => {
 
-  const {data, error, isLoading} = useFetchAllBooksQuery();
-  console.log('API Response:', data);
-  console.log('Error:', error);
-  console.log('Loading:', isLoading);
-  
-  const books = data?.books || [];
-
-  if (isLoading) return <div className='py-16'><p>Loading books...</p></div>;
-  if (error) return <div className='py-16'><p>Error loading books: {error.message}</p></div>;
+  // Using mock data for immediate display
+  const books = mockBooks;
+  console.log('Books loaded:', books.length);
 
   return (
     <div className='py-16'> 
