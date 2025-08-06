@@ -1,6 +1,6 @@
 const getBaseUrl = () => {
-    // Temporary hardcoded fix
-    return "https://bookstore-system-3-bmv4.onrender.com/api";
+    // Temporary CORS proxy workaround
+    return "https://corsproxy.io/?https://bookstore-system-3-bmv4.onrender.com/api";
 }
 
 export default getBaseUrl;
