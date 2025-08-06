@@ -2,7 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import getBaseUrl from '../../../utils/baseURL'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: `${getBaseUrl()}/books`
+    baseUrl: '/mock', // Disabled API
+    prepareHeaders: () => {
+        throw new Error('API disabled - using mock data');
+    }
 })
 
 const booksApi = createApi({
