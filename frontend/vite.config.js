@@ -17,6 +17,13 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    host: true
+    host: true,
+    proxy: {
+      '/api': {
+        target: 'https://bookstore-system-3-bmv4.onrender.com',
+        changeOrigin: true,
+        secure: true
+      }
+    }
   }
 })
