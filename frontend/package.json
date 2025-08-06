@@ -10,7 +10,8 @@
     "tw:build": "tailwindcss -i ./input.css -o ./output.css --watch",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",

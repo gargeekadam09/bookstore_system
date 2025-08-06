@@ -1,5 +1,5 @@
 const getBaseUrl = () => {
-    return "http://localhost:5000";
+    return import.meta.env.VITE_API_URL || "https://bookstore-system-3-bmv4.onrender.com";
 }
 
 export default getBaseUrl;

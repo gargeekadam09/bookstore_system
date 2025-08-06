@@ -11,7 +11,9 @@ require('dotenv').config()
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin:["http://localhost:5173"],
+    origin: process.env.NODE_ENV === 'production' 
+      ? ["https://bookstore-system-8w6n.vercel.app"]
+      : ["http://localhost:5173"],
     credentials: true
 }));
 
@@ -44,9 +46,12 @@ async function main() {
 
 main().then(() => {
   // Server starts listening only after MongoDB connection is established
-  app.listen(port, () => {
-    console.log(`Book Store app listening on port ${port}`);
-  });
+  if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+      console.log(`Book Store app listening on port ${port}`);
+    });
+  }
 }).catch(err => console.log(err));
 
-// Server is started in the main() promise chain
+// Export app for Vercel
+module.exports = app;
