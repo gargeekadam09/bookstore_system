@@ -8,9 +8,7 @@ const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
-app.use(cors({
-  origin: ['https://bookstore-system-2u1z-gvz6eusv4-gargee-kadams-projects.vercel.app']
-}));
+app.use(cors());
 
 // Import routes
 const bookRoutes = require('./src/books/book.route');
