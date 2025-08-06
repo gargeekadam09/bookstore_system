@@ -3,7 +3,7 @@ import getBaseUrl from '../../../utils/baseURL'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: `${getBaseUrl()}/orders`,
-    credentials: 'include',
+    // credentials: 'include', // Disabled for proxy
     prepareHeaders: (Headers) => {
         const token = localStorage.getItem('token');
         if (token) {
