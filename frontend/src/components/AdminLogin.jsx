@@ -11,7 +11,7 @@ const AdminLogin = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post(`${getBaseUrl()}/api/admin/login`, data)
+            const response = await axios.post(`${getBaseUrl()}/admin/login`, data)
             
             localStorage.setItem('adminToken', response.data.token)
             localStorage.setItem('adminUser', JSON.stringify(response.data.admin))
