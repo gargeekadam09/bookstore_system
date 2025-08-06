@@ -11,23 +11,7 @@ require('dotenv').config()
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: function (origin, callback) {
-        if (process.env.NODE_ENV === 'production') {
-            // Allow requests from any Vercel deployment or no origin (mobile apps)
-            if (!origin || origin.includes('vercel.app')) {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        } else {
-            // Allow localhost in development
-            if (!origin || origin === 'http://localhost:5173') {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        }
-    },
+    origin: true, // Temporarily allow all origins
     credentials: true
 }));
 
