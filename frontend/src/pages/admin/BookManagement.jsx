@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useFetchAllBooksQuery, useAddBookMutation, useUpdateBookMutation, useDeleteBookMutation } from '../../redux/features/books/booksApi'
+import { mockBooks } from '../../data/mockBooks'
+// import { useFetchAllBooksQuery, useAddBookMutation, useUpdateBookMutation, useDeleteBookMutation } from '../../redux/features/books/booksApi'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 
@@ -7,10 +8,8 @@ const BookManagement = () => {
     const [showAddForm, setShowAddForm] = useState(false)
     const [editingBook, setEditingBook] = useState(null)
     
-    const { data: books, refetch } = useFetchAllBooksQuery()
-    const [addBook] = useAddBookMutation()
-    const [updateBook] = useUpdateBookMutation()
-    const [deleteBook] = useDeleteBookMutation()
+    const books = { books: mockBooks }
+    const refetch = () => {} // Mock refetch function
     
     const { register, handleSubmit, reset, setValue } = useForm()
 

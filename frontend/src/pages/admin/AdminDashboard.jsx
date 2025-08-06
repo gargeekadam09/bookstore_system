@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
-import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi'
-import { useGetAllOrdersQuery } from '../../redux/features/orders/ordersApi'
+import { mockBooks } from '../../data/mockBooks'
+// import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi'
+// import { useGetAllOrdersQuery } from '../../redux/features/orders/ordersApi'
 import BookManagement from './BookManagement'
 import OrderManagement from './OrderManagement'
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('dashboard')
-    const { data: books } = useFetchAllBooksQuery()
-    const { data: orders } = useGetAllOrdersQuery()
+    const books = mockBooks
+    const orders = [] // Mock empty orders
     
-    const totalBooks = books?.books?.length || 0
-    const totalOrders = orders?.length || 0
+    const totalBooks = books.length || 0
+    const totalOrders = orders.length || 0
 
     const handleLogout = () => {
         localStorage.removeItem('adminToken')
