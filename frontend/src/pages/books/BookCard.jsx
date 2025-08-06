@@ -20,7 +20,7 @@ const handleAddToCart = (product) => {
     <div className="sm:h-72 sm:flex-shrink-0 border rounded-md">
       <Link to= {`/books/${book._id || encodeURIComponent(book.title)}`} >
         <img
-          src={`/src/assets/books/${book?.coverImage}`}
+          src={`/books/${book?.coverImage}`}
           alt={book.title}
           className="w-full h-64 object-contain p-2 rounded-md cursor-pointer hover:scale-105 transition-all duration-200"
         />
