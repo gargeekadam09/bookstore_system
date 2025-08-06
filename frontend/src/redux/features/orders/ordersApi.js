@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import getBaseUrl from '../../../utils/baseURL'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: `${getBaseUrl()}/api/orders`,
-    credentials: 'include',
+    baseUrl: `${getBaseUrl()}/orders`,
+    // credentials: 'include', // Disabled for CORS proxy
     prepareHeaders: (Headers) => {
         const token = localStorage.getItem('token');
         if (token) {

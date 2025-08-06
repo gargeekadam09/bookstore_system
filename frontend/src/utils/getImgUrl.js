@@ -1,5 +1,5 @@
 function getImgUrl(name) {
-    return `/src/assets/books/${name}`
+    return new URL(`../assets/books/${name}`, import.meta.url).href
 }
 
 export default getImgUrl;
