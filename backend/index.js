@@ -11,9 +11,23 @@ require('dotenv').config()
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-      ? ["https://bookstore-system-seven.vercel.app", "https://bookstore-system-9oo6.vercel.app"]
-      : ["http://localhost:5173"],
+    origin: function (origin, callback) {
+        if (process.env.NODE_ENV === 'production') {
+            // Allow requests from any Vercel deployment or no origin (mobile apps)
+            if (!origin || origin.includes('vercel.app')) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        } else {
+            // Allow localhost in development
+            if (!origin || origin === 'http://localhost:5173') {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        }
+    },
     credentials: true
 }));
 
